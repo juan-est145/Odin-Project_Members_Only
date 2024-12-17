@@ -1,14 +1,10 @@
 const { body, validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 const { signUser } = require("../db/queries");
-const passport = require("passport"); //Might need to erase later
-//const { passportAuth } = require("../db/passport");
+const { passportAuth } = require("../db/passport");
 
 function getIndex(req, res) {
 	res.render("index");
-	//Temp
-	if (req.isAuthenticated())
-		console.log("Autenticado");
 }
 
 function getSignIn(req, res) {
@@ -63,11 +59,7 @@ const postLogIn = [
 				//This is temporal for now
 				return ;
 			}
-			//passportAuth(req, res, next);
-			passport.authenticate('local', {
-                successRedirect: '/',
-                failureRedirect: '/',
-            })(req, res, next);
+			passportAuth(req, res, next);
 		} catch (error) {
 			console.error(error)
 			//This is temporal too for now

@@ -37,9 +37,9 @@ passport.deserializeUser(async (id, done) => {
 });
 
 const passportConf = passport.session();
-//const passportAuth = (req, res, next) => passport.authenticate("local", { successRedirect: "/", failureRedirect: "/" })(req, res, next);
+const passportAuth = (req, res, next) => passport.authenticate("local", { successRedirect: "/", failureRedirect: "/" })(req, res, next);
 
 module.exports = {
 	passportConf,
-	/*passportAuth,*/
+	passportAuth,
 };
