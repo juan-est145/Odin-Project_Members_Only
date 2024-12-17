@@ -1,7 +1,6 @@
 require("dotenv").config();
 const express = require("express");
 const indexRouter = require("./routes/indexRouter");
-const session = require("express-session");
 const { sessionConf } = require("./db/pool");
 const { passportConf } = require("./db/passport");
 
@@ -11,7 +10,7 @@ app.set("views", __dirname + "/views");
 app.set("view engine", "ejs");
 
 app.use(express.urlencoded({ extended: false }));
-app.use(session(sessionConf));
+app.use(sessionConf);
 app.use(passportConf);
 app.use((req, res, next) => {
 	res.locals.currentUser = req.user;

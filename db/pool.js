@@ -21,7 +21,7 @@ const pool = new Pool({
 	password: process.env.PASSWORD
 });
 
-const sessionConf = {
+const sessionConf = session({
 	store: new pgSession({
 		pool: pool,
 		createTableIfMissing: true,
@@ -31,7 +31,7 @@ const sessionConf = {
 	saveUninitialized: false,
 	secret: process.env.SECRET,
 	cookie: { maxAge: maxAge },
-};
+});
 
 module.exports = {
 	sessionConf,
