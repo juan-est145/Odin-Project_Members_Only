@@ -1,6 +1,8 @@
+const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const { getUser } = require("./queries");
 const bcrypt = require("bcryptjs");
+const { getUserById } = require("./queries");
 
 const customFields = {
 	usernameField: "user",
@@ -20,3 +22,18 @@ const strategy = new LocalStrategy((customFields, async (username, password, don
 		return done(error);
 	}
 }));
+
+passport.use(strategy);
+passport.serializeUser((user, done) => {
+	done(null, user.id);
+});
+passport.deserializeUser(async (id, done) => {
+	try {
+		const user = await getUserById(id);
+		done (null, user[0]);
+	} catch (error) {
+		done(error);
+	}
+});
+
+module.exports = passport.session();

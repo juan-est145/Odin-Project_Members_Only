@@ -11,6 +11,16 @@ async function getUser(user) {
 	}
 }
 
+async function getUserById(id) {
+	try {
+		const { rows } = await pool.query("SELECT * FROM users where id == $1;", [id]);
+		return (rows);
+	} catch (error) {
+		console.error(error);
+	}
+}
+
 module.exports = {
 	getUser,
+	getUserById,
 };

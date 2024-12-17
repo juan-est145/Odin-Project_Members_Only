@@ -1,9 +1,10 @@
 require("dotenv").config();
 const express = require("express");
 const indexRouter = require("./routes/indexRouter");
-const { session } = require("passport");
+const session = require("express-session");
 const { sessionConf } = require("./db/pool");
-const passport = require("passport");
+const passportConf = require("./db/passport");
+
 
 const app = express();
 app.set("views", __dirname + "/views");
@@ -11,7 +12,7 @@ app.set("view engine", "ejs");
 
 app.use(express.urlencoded({ extended: false }));
 app.use(session(sessionConf));
-app.use(passport.session());
+app.use(passportConf);
 
 
 app.get("/", indexRouter);
