@@ -1,9 +1,26 @@
 const { body, validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 const { signUser } = require("../db/queries");
+const passport = require("passport"); //Might need to erase later
+//const { passportAuth } = require("../db/passport");
+
+function getIndex(req, res) {
+	res.render("index");
+	//Temp
+	if (req.isAuthenticated())
+		console.log("Autenticado");
+}
 
 function getSignIn(req, res) {
 	res.render("./partials/signInForm");
+}
+
+function getLogOut(req, res, err) {
+	req.logout((err) => {
+		if (err)
+			return next(err);
+		res.redirect("/");
+	})
 }
 
 const postSignIn = [
@@ -29,9 +46,39 @@ const postSignIn = [
 			//This is temporal too for now
 		}
 	}
-]
+];
+
+const postLogIn = [
+	[
+		body("username").trim()
+			.notEmpty().withMessage("Invalid username or password"),
+		body("password").trim()
+			.isLength({ min: 8}).withMessage("Invalid username or password")
+	],
+	function logIn(req, res, next) {
+		try {
+			const errors = validationResult(req);
+			if (!errors.isEmpty()) {
+				console.log("Invalid input");
+				//This is temporal for now
+				return ;
+			}
+			//passportAuth(req, res, next);
+			passport.authenticate('local', {
+                successRedirect: '/',
+                failureRedirect: '/',
+            })(req, res, next);
+		} catch (error) {
+			console.error(error)
+			//This is temporal too for now
+		}
+	}
+];
 
 module.exports = {
+	getIndex,
 	getSignIn,
+	getLogOut,
 	postSignIn,
+	postLogIn,
 };

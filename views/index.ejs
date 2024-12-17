@@ -6,8 +6,8 @@
 	<title>Message club</title>
 </head>
 <body>
-	<% if (locals.user) {%>
-		<h1>Welcome back, user <%= user.username %></h1>
+	<% if (locals.currentUser) {%>
+		<h1>Welcome back, user <%= currentUser.username %></h1>
 		<a href="/log-out">Log out</a>
 	<% } else { %>
 		<h1>Please log in</h1>
