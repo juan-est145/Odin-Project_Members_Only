@@ -2,6 +2,17 @@ const { Pool } = require("pg");
 const session = require("express-session");
 const pgSession = require("connect-pg-simple")(session);
 
+const timeCalc = {
+	msToSeconds : 1000,
+	secndsToMinutes : 60,
+	minToHours : 60,
+	hoursToDays: 24,
+};
+
+const maxAge = Object.values(timeCalc).reduce((prev, curr) => {
+	return prev * curr;
+}) * 12;
+
 const pool = new Pool({
 	database: process.env.DATABSE,
 	port: process.env.DBPORT,
@@ -19,6 +30,10 @@ const sessionConf = {
 	resave: false,
 	saveUninitialized: false,
 	secret: process.env.SECRET,
+	cookie: { maxAge: maxAge },
 };
 
-module.exports = sessionConf;
+module.exports = {
+	sessionConf,
+	pool,
+};
