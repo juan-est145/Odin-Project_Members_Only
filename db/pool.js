@@ -14,7 +14,7 @@ const maxAge = Object.values(timeCalc).reduce((prev, curr) => {
 }) * 12;
 
 const pool = new Pool({
-	database: process.env.DATABSE,
+	database: process.env.DATABASE,
 	port: process.env.DBPORT,
 	host: process.env.HOST,
 	user: process.env.USER,

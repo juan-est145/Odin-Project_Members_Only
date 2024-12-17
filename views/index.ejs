@@ -6,6 +6,13 @@
 	<title>Message club</title>
 </head>
 <body>
-	<h1>This is a test</h1>
+	<% if (locals.user) {%>
+		<h1>Welcome back, user <%= user.username %></h1>
+		<a href="/log-out">Log out</a>
+	<% } else { %>
+		<h1>Please log in</h1>
+		<%- include("./partials/logInForm.ejs") %>
+	<% } %>
+	<a href="/sign-in">Not registered? Create an account here</a>
 </body>
 </html>
