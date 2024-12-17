@@ -18,5 +18,7 @@ app.use((req, res, next) => {
 	next();
 });
 
+//Need to add an error and a invalid path catcher
+
 app.use("/", indexRouter);
 app.listen(process.env.PORT || 3000, () => console.log("App listening on port 3000!"));

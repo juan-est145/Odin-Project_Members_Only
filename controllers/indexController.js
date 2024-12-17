@@ -16,7 +16,7 @@ function getLogOut(req, res, err) {
 		if (err)
 			return next(err);
 		res.redirect("/");
-	})
+	});
 }
 
 const postSignIn = [
