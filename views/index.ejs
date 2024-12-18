@@ -4,15 +4,31 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Message club</title>
+	<link rel="stylesheet" href="style.css">
 </head>
 <body>
-	<% if (locals.currentUser) {%>
-		<h1>Welcome back, user <%= currentUser.username %></h1>
-		<a href="/log-out">Log out</a>
-	<% } else { %>
-		<h1>Please log in</h1>
-		<%- include("./partials/logInForm.ejs") %>
-	<% } %>
-	<a href="/sign-in">Not registered? Create an account here</a>
+	<header>
+		<a href="/">
+			<h1>Message club</h1>
+		</a>
+		<a href="/log-in">Log in</a>
+	</header>
+	<main>
+		<h1>Welcome to the private message app</h1>
+		<p>Here you can post messages for other people to see, but only members can see who posted what and when</p>
+		<button>Sign in</button>
+	</main>
+	<footer>
+		<span>Part of the Odin Project Node path</span>
+	</footer>
 </body>
 </html>
+
+<!--<% if (locals.currentUser) {%>
+	<h1>Welcome back, user <%= currentUser.username %></h1>
+	<a href="/log-out">Log out</a>
+<% } else { %>
+	<h1>Please log in</h1>
+	<%- include("./partials/logInForm.ejs") %>
+<% } %>
+<a href="/sign-in">Not registered? Create an account here</a>-->
