@@ -7,15 +7,12 @@
 	<link rel="stylesheet" href="style.css">
 </head>
 <body>
-	<header>
-		<a href="/">
-			<h1>Message club</h1>
-		</a>
-		<a href="/log-in">Log in</a>
-	</header>
+	<%- include("partials/header") %>
 	<main>
-		<h1>Welcome to the private message app</h1>
-		<p>Here you can post messages for other people to see, but only members can see who posted what and when</p>
+		<div>
+			<h1>Welcome to the private message app</h1>
+			<p>Here you can post messages for other people to see, but only members can see who posted what and when</p>
+		</div>
 		<button>Sign in</button>
 	</main>
 	<footer>
