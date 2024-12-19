@@ -51,7 +51,7 @@ const passportAuth = (req, res, next) => {
             if (err)
                 return next(err);
             // Authentication succeeded
-            return res.redirect("/");
+            return res.redirect("/messages");
         });
     })(req, res, next);
 };

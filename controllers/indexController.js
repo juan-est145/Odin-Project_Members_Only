@@ -13,7 +13,7 @@ function getSignIn(req, res) {
 
 function getLogIn(req, res) {
 	if (req.isAuthenticated())
-		return res.redirect("/");
+		return res.redirect("/messages");
 	res.render("./logIn");
 }
 
