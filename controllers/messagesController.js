@@ -11,6 +11,7 @@ async function getDashBoard(req, res, next) {
 		});
 		res.send(string);
 	} catch (error) {
+		console.error(error);
 		next(error);
 	}
 }
