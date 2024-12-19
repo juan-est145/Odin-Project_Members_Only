@@ -1,0 +1,5 @@
+<% if (locals.valErrors) { %>
+	<% locals.valErrors.forEach((element) => { %>
+		<span><%= element.msg %></span>
+	<% }) %>
+<% } %>

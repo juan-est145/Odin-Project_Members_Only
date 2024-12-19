@@ -1,5 +1,7 @@
 require("dotenv").config();
 const express = require("express");
+const cookieParser = require("cookie-parser");
+const flash = require("connect-flash");
 const path = require("path");
 const indexRouter = require("./routes/indexRouter");
 const { sessionConf } = require("./db/pool");
@@ -12,8 +14,10 @@ app.set("view engine", "ejs");
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
+app.use(cookieParser());
 app.use(sessionConf);
 app.use(passportConf);
+app.use(flash());
 app.use((req, res, next) => {
 	res.locals.currentUser = req.user;
 	next();

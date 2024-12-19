@@ -67,9 +67,8 @@ const postLogIn = [
 		try {
 			const errors = validationResult(req);
 			if (!errors.isEmpty()) {
-				console.log("Invalid input");
-				//This is temporal for now
-				return res.status(400).render("logIn");
+				req.flash("valErrors", errors.array());
+				return res.status(400).redirect("/log-in");
 			}
 			passportAuth(req, res, next);
 		} catch (error) {
