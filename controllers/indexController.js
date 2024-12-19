@@ -8,7 +8,7 @@ function getIndex(req, res) {
 }
 
 function getSignIn(req, res) {
-	res.render("./partials/signInForm");
+	res.render("./signIn");
 }
 
 function getLogIn(req, res) {
