@@ -9,6 +9,8 @@ const customFields = {
 	passwordField: "password",
 };
 
+//Need to test try catches to see if they work
+
 const strategy = new LocalStrategy((customFields, async (username, password, done) => {
 	try {
 		const user = await getUser(username);

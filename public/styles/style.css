@@ -55,3 +55,9 @@ footer {
 	padding: 0.8em;
 	color: white;
 }
+
+.errorList {
+	list-style-type: none;
+	text-decoration: underline;
+	color: red;
+}

@@ -30,7 +30,7 @@ const postSignIn = [
 		body("username").trim()
 			.notEmpty().withMessage("Invalid username"),
 		body("password").trim()
-			.isLength({ min: 8 }).withMessage("Password must be at least of length eight"),
+			.isLength({ min: 8 }).withMessage("Password must be at least a length of 8"),
 		body("passwordRepeat").trim()
 			.custom((value, { req }) => {
 				if (value !== req.body.password)
@@ -50,7 +50,10 @@ const postSignIn = [
 			res.redirect("/");
 		} catch (error) {
 			console.error(error)
-			//This is temporal too for now
+			if (error.constraint && error.constraint === 'users_unique') {
+				req.flash("valErrors", [{msg: "Invalid username"}]);
+				res.status(400).redirect("sign-in");
+			}
 		}
 	}
 ];
@@ -63,17 +66,13 @@ const postLogIn = [
 			.isLength({ min: 8 }).withMessage("Invalid username or password"),
 	],
 	function logIn(req, res, next) {
-		try {
-			const errors = validationResult(req);
-			if (!errors.isEmpty()) {
-				req.flash("valErrors", ["Invalid username or password"]);
-				return res.status(400).redirect("/log-in");
-			}
-			passportAuth(req, res, next);
-		} catch (error) {
-			console.error(error)
-			//This is temporal too for now
+		const errors = validationResult(req);
+		if (!errors.isEmpty()) {
+			const errorMsg = [errors.array()[0]];
+			req.flash("valErrors", errorMsg);
+			return res.status(400).redirect("/log-in");
 		}
+		passportAuth(req, res, next);
 	}
 ];
 
