@@ -11,6 +11,14 @@ function getSignIn(req, res) {
 	res.render("./partials/signInForm");
 }
 
+function getLogIn(req, res) {
+	if (req.isAuthenticated()) {
+		res.redirect("/");
+		return;
+	}		
+	res.render("./partials/logInForm");
+}
+
 function getLogOut(req, res, err) {
 	req.logout((err) => {
 		if (err)
@@ -70,6 +78,7 @@ const postLogIn = [
 module.exports = {
 	getIndex,
 	getSignIn,
+	getLogIn,
 	getLogOut,
 	postSignIn,
 	postLogIn,

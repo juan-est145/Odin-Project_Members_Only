@@ -2,5 +2,9 @@
 	<a href="/">
 		<h1>Message club</h1>
 	</a>
-	<a href="/log-in">Log in</a>
+	<% if (!locals.currentUser) { %>
+		<a href="/log-in">Log in</a>
+	<% } else { %>
+		<a href="/log-out">Log out</a>
+	<% } %>
 </header>
