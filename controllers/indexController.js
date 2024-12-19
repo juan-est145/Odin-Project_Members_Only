@@ -17,7 +17,7 @@ function getLogIn(req, res) {
 	res.render("./logIn");
 }
 
-function getLogOut(req, res, next, err) {
+function getLogOut(req, res) {
 	req.logout((err) => {
 		if (err)
 			return next(err);
@@ -38,7 +38,7 @@ const postSignIn = [
 				return true;
 			})
 	],
-	async function signIn(req, res, next) {
+	async function signIn(req, res) {
 		try {
 			const errors = validationResult(req);
 			if (!errors.isEmpty()) {
