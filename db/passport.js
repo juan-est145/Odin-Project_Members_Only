@@ -37,8 +37,24 @@ passport.deserializeUser(async (id, done) => {
 });
 
 const passportConf = passport.session();
-const passportAuth = (req, res, next) => passport.authenticate("local", { successRedirect: "/", failureRedirect: "/" })(req, res, next);
-
+const passportAuth = (req, res, next) => {
+    passport.authenticate("local", (err, user, info) => {
+        if (err) {
+            return next(err);
+        }
+        if (!user) {
+            // Authentication failed
+            req.flash('valErrors', info ? [{msg : info.message}] : [{msg : "Invalid username or password"}]);
+            return res.redirect("/log-in");
+        }
+        req.logIn(user, (err) => {
+            if (err)
+                return next(err);
+            // Authentication succeeded
+            return res.redirect("/");
+        });
+    })(req, res, next);
+};
 module.exports = {
 	passportConf,
 	passportAuth,

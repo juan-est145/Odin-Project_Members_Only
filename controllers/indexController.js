@@ -42,9 +42,8 @@ const postSignIn = [
 		try {
 			const errors = validationResult(req);
 			if (!errors.isEmpty()) {
-				console.log("Invalid input");
-				//This is temporal for now
-				return res.status(400).render("signIn");
+				req.flash("valErrors", errors.array());
+				return res.status(400).redirect("sign-in");
 			}
 			const hashPromise = await bcrypt.hash(req.body.password, 10);
 			await signUser(req.body.username, hashPromise);
@@ -67,7 +66,7 @@ const postLogIn = [
 		try {
 			const errors = validationResult(req);
 			if (!errors.isEmpty()) {
-				req.flash("valErrors", errors.array());
+				req.flash("valErrors", ["Invalid username or password"]);
 				return res.status(400).redirect("/log-in");
 			}
 			passportAuth(req, res, next);
