@@ -29,8 +29,18 @@ async function signUser(user, password) {
 	}
 }
 
+async function getAllMsgs() {
+	try {
+		const { rows } = await pool.query("SELECT * FROM message");
+		return (rows);
+	} catch (error) {
+		throw error;
+	}
+}
+
 module.exports = {
 	getUser,
 	getUserById,
 	signUser,
+	getAllMsgs,
 };
