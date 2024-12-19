@@ -12,11 +12,9 @@ function getSignIn(req, res) {
 }
 
 function getLogIn(req, res) {
-	if (req.isAuthenticated()) {
-		res.redirect("/");
-		return;
-	}		
-	res.render("./partials/logInForm");
+	if (req.isAuthenticated())
+		return res.redirect("/");
+	res.render("./logIn");
 }
 
 function getLogOut(req, res, err) {
@@ -65,7 +63,7 @@ const postLogIn = [
 			if (!errors.isEmpty()) {
 				console.log("Invalid input");
 				//This is temporal for now
-				return ;
+				return res.status(400).render("logIn");
 			}
 			passportAuth(req, res, next);
 		} catch (error) {
