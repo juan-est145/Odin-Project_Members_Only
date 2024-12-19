@@ -1,6 +1,5 @@
 const { getAllMsgs } = require("../db/queries");
 
-//Test error later
 async function getDashBoard(req, res, next) {
 	if (!req.isAuthenticated())
 		return res.send("Una mierda para ti");
