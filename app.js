@@ -4,6 +4,7 @@ const cookieParser = require("cookie-parser");
 const flash = require("connect-flash");
 const path = require("path");
 const indexRouter = require("./routes/indexRouter");
+const msgRouter = require("./routes/messagesRouter");
 const { sessionConf } = require("./db/pool");
 const { passportConf } = require("./db/passport");
 
@@ -24,6 +25,7 @@ app.use((req, res, next) => {
 });
 
 app.use("/", indexRouter);
+app.use("/messages", msgRouter);
 
 app.use((req, res, next) => {
 	res.status(404).send("404: Page not found");
