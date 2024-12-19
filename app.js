@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const flash = require("connect-flash");
+const helmet = require("helmet");
 const path = require("path");
 const indexRouter = require("./routes/indexRouter");
 const msgRouter = require("./routes/messagesRouter");
@@ -19,6 +20,14 @@ app.use(cookieParser());
 app.use(sessionConf);
 app.use(passportConf);
 app.use(flash());
+app.disable("x-powered-by");
+app.use(helmet({
+	contentSecurityPolicy: {
+		directives: {
+			"style-src": "'self'",
+		}
+	}
+}));
 app.use((req, res, next) => {
 	res.locals.currentUser = req.user;
 	next();
