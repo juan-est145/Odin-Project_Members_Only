@@ -17,7 +17,7 @@ function getLogIn(req, res) {
 	res.render("./logIn");
 }
 
-function getLogOut(req, res, err) {
+function getLogOut(req, res, next, err) {
 	req.logout((err) => {
 		if (err)
 			return next(err);
@@ -30,7 +30,13 @@ const postSignIn = [
 		body("username").trim()
 			.notEmpty().withMessage("Invalid username"),
 		body("password").trim()
-			.isLength({ min: 8}).withMessage("Password must be at least of length eight")
+			.isLength({ min: 8 }).withMessage("Password must be at least of length eight"),
+		body("passwordRepeat").trim()
+			.custom((value, { req }) => {
+				if (value !== req.body.password)
+					throw new Error("Passwords do not match");
+				return true;
+			})
 	],
 	async function signIn(req, res, next) {
 		try {
@@ -38,7 +44,7 @@ const postSignIn = [
 			if (!errors.isEmpty()) {
 				console.log("Invalid input");
 				//This is temporal for now
-				return ;
+				return res.status(400).render("signIn");
 			}
 			const hashPromise = await bcrypt.hash(req.body.password, 10);
 			await signUser(req.body.username, hashPromise);
@@ -55,7 +61,7 @@ const postLogIn = [
 		body("username").trim()
 			.notEmpty().withMessage("Invalid username or password"),
 		body("password").trim()
-			.isLength({ min: 8}).withMessage("Invalid username or password")
+			.isLength({ min: 8 }).withMessage("Invalid username or password"),
 	],
 	function logIn(req, res, next) {
 		try {
