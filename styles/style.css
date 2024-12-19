@@ -42,7 +42,7 @@ main {
 	border-radius: 2em;
 	font-size: 1.2rem;
 	color: white;
-	padding: 0.8em;
+	padding: 0.6em;
 }
 
 .mainBtn:focus{
@@ -53,4 +53,5 @@ footer {
 	background-color: var(--accent);
 	text-align: center;
 	padding: 0.8em;
+	color: white;
 }

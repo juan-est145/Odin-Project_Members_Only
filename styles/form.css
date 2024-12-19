@@ -1,0 +1,23 @@
+@import url("style.css");
+
+body {
+	color: black;
+}
+
+form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	color: black;
+	flex-grow: 1;
+	gap: 5px;
+}
+
+input {
+	font-size: 1.1rem;
+}
+
+a {
+	color: var(--btnColor);
+	font-weight: bold;
+}
