@@ -43,9 +43,21 @@ async function getAllMsgs() {
 	}
 }
 
+async function insertMsg(title, text, date, users_id) {
+	if (!title || !text || !date || !users_id)
+		return (null);
+	try {
+		await pool.query("INSERT INTO message (title, text, date, users_id) \
+											VALUES($1, $2, $3, $4);", [title, text, date, users_id]);
+	} catch (error) {
+		throw error;
+	}
+}
+
 module.exports = {
 	getUser,
 	getUserById,
 	signUser,
 	getAllMsgs,
+	insertMsg,
 };
