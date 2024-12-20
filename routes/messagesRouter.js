@@ -3,6 +3,7 @@ const msgController = require("../controllers/messagesController");
 
 const msgRouter = Router();
 
+//Later add a proper response
 msgRouter.use((req, res, next) => {
 	if (!req.isAuthenticated())
 		return res.send("Va a ser que no");
