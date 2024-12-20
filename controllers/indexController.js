@@ -18,9 +18,13 @@ function getLogIn(req, res) {
 }
 
 function getLogOut(req, res) {
-	req.logout((err) => {
+	req.logout(async (err) => {
 		if (err)
 			return next(err);
+	await req.session.destroy((err) => {
+		if (err)
+			return next(err);
+	});
 		res.redirect("/");
 	});
 }
