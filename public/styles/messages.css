@@ -3,3 +3,33 @@
 body {
 	color: black;
 }
+
+.newMessageHeader {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 0.6em;
+	background-color: rgb(209, 223, 237);
+}
+
+#postMessage>form {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+	min-width: 50vw;
+}
+
+#postMessage>form>textarea,
+#postMessage>form>input {
+	min-width: 80%;
+}
+
+#postMessage>form>input {
+	font-size: 1.1rem;
+}
+
+#postMessage>form>textarea {
+	min-height: 40ch;
+}
