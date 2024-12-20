@@ -10,5 +10,6 @@ msgRouter.use((req, res, next) => {
 });
 
 msgRouter.get("/", msgController.getDashBoard);
+msgRouter.post("/new-message", msgController.postMessage);
 
 module.exports = msgRouter;

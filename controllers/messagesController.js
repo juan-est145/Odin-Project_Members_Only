@@ -11,6 +11,12 @@ async function getDashBoard(req, res, next) {
 	}
 }
 
+function postMessage(req, res, next) {
+	console.log("Form received");
+	return res.redirect("/messages");
+}
+
 module.exports = {
 	getDashBoard,
+	postMessage,
 }
