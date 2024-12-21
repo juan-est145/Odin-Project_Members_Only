@@ -56,4 +56,20 @@ body {
 .message>div {
 	display: flex;
 	flex-direction: column;
+	align-items: flex-start;
+	gap: 5px;
+}
+
+.delBtn {
+	cursor: pointer;
+	background-color: red;
+	border: none;
+	border-radius: 2em;
+	font-size: 0.8rem;
+	color: white;
+	padding: 0.4rem;
+}
+
+.delBtn:focus{
+	background-color: rgb(149, 2, 2);
 }

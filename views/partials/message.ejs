@@ -6,6 +6,11 @@
 			<div>
 				<span> <%=  `User: ${locals.currentUser.role === "user"? "Redacted" : element.username }` %></span>
 				<span><%= `Date: ${locals.currentUser.role === "user"? "Redacted" : element.date }` %></span>
+				<% if (locals.currentUser.role === "admin") {%>
+					<a href="/messages/delete">
+						<button class="delBtn">Delete message</button>
+					</a>
+				<% } %>
 			</div>
 		</div>
 	<% }); %>
