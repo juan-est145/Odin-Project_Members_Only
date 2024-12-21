@@ -7,7 +7,7 @@
 		<div>
 			<h2>Post a new message</h2>
 			<span>
-				<%= `Your current role is ${locals.currentUser.role}.` %>
+				<%= `Hello ${locals.currentUser.username} . Your current role is ${locals.currentUser.role}.` %>
 				<% if (locals.currentUser.role === "user") { %>
 					In order to see who posted what and when, you will need to upgrade your account by clicking <a href="/messages/upgrade">here</a>
 				<% } %>

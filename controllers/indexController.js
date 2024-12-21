@@ -42,7 +42,7 @@ const postSignIn = [
 				return (true);
 			})
 	],
-	async function signIn(req, res) {
+	async function signIn(req, res, next) {
 		try {
 			const errors = validationResult(req);
 			if (!errors.isEmpty()) {
@@ -51,7 +51,8 @@ const postSignIn = [
 			}
 			const hashPromise = await bcrypt.hash(req.body.password, 10);
 			await signUser(req.body.username, hashPromise);
-			res.redirect("/");
+			return passportAuth(req, res, next);
+			//res.redirect("/");
 		} catch (error) {
 			console.error(error)
 			if (error.constraint && error.constraint === 'users_unique') {
