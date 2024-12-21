@@ -1,1 +1,14 @@
 @import url("style.css");
+
+form {
+	display: flex;
+	flex-direction: column;
+	font-size: 2rem;
+	align-items: center;
+	gap: 20px;
+}
+
+form input {
+	font-size: 1.4rem;
+	min-width: 40ch;
+}
