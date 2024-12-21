@@ -52,7 +52,6 @@ const postSignIn = [
 			const hashPromise = await bcrypt.hash(req.body.password, 10);
 			await signUser(req.body.username, hashPromise);
 			return passportAuth(req, res, next);
-			//res.redirect("/");
 		} catch (error) {
 			console.error(error)
 			if (error.constraint && error.constraint === 'users_unique') {
