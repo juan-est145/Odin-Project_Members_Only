@@ -1,9 +1,9 @@
-const { getAllMsgs, insertMsg, upgradeMember } = require("../db/queries");
+const query = require("../db/queries");
 const { body, validationResult } = require("express-validator");
 
 async function getDashBoard(req, res, next) {
 	try {
-		const msgs = await getAllMsgs();
+		const msgs = await query.getAllMsgs();
 		res.render("messages", { messages: msgs });
 	} catch (error) {
 		console.error(error);
@@ -32,7 +32,7 @@ const postMessage = [
 		}
 		try {
 			const date = new Date().toISOString();
-			await insertMsg(req.body.title, req.body.content, date, req.user.id);
+			await query.insertMsg(req.body.title, req.body.content, date, req.user.id);
 			return res.redirect("/messages");
 		} catch (error) {
 			console.error(error);
@@ -44,7 +44,7 @@ const postMessage = [
 const postUpgradeForm = [
 	[
 		body("passcode").trim()
-			.isLength({min: 1, max: 255 })
+			.isLength({ min: 1, max: 255 })
 			.custom((value) => {
 				if (value === process.env.MEMBER_PASS || value === process.env.ADMIN_PASS)
 					return (true);
@@ -52,7 +52,7 @@ const postUpgradeForm = [
 			}),
 	],
 	async function postUpgradeForm(req, res, next) {
-		if (req.user.role === "admin") 
+		if (req.user.role === "admin")
 			return res.redirect("/messages");
 		try {
 			const errors = validationResult(req);
@@ -61,7 +61,7 @@ const postUpgradeForm = [
 				return res.redirect("/messages/upgrade");
 			}
 			let newRole = req.body.passcode === process.env.ADMIN_PASS ? "admin" : "member";
-			await upgradeMember(req.user, newRole);
+			await query.upgradeMember(req.user, newRole);
 			return res.redirect("/messages");
 		} catch (error) {
 			console.error(error);
@@ -70,16 +70,27 @@ const postUpgradeForm = [
 	}
 ];
 
-async function deleteMsg(req, res, next) {
-	if (req.user.role !== "admin")
-		return res.status(401).redirect("/messages");
-	try {
-		
-	} catch (error) {
-		
+const deleteMsg = [
+	[
+		body("id").trim()
+			.isNumeric().withMessage("Invalid id"),
+	],
+	async function deleteMsg(req, res, next) {
+		try {
+			const user = await query.getUserById(req.user.id);
+			if (user[0].role !== "admin")
+				return res.status(401).redirect('/messages');
+			const errors = validationResult(req);
+			if (!errors.isEmpty())
+				return res.status(400).json({ message: "Error, invalid message id"});
+			await query.deleteMsg(req.body.id);
+			return res.json({ message: "Message deleted successfully" });
+		} catch (error) {
+			console.error(error);
+			next(error);
+		}
 	}
-}
-
+];
 
 module.exports = {
 	getDashBoard,

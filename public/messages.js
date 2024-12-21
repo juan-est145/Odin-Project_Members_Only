@@ -17,9 +17,25 @@ modal.addEventListener("click", (e) => {
 		modal.close();
 });
 
-msgBoard.addEventListener("click", (e) => {
+msgBoard.addEventListener("click", async (e) => {
 	if (!e.target.classList.contains("delBtn"))
 		return;
-	alert(`You clicked on button ${e.target.dataset.id}`);
-	// Implement request logic
+	const body = new URLSearchParams();
+	body.append("id", e.target.dataset.id);
+	const response = await fetch("/messages/delete", {
+		method: "DELETE",
+		headers: {
+			"Content-Type": "application/x-www-form-urlencoded"
+		},
+		body: body.toString(),
+	});
+	if (response.status === 401) {
+		alert("You do not have the necessary privileges to delete this message.");
+        window.location.href = "/messages";
+	}
+	else {
+		const data = await response.json();
+		alert(data.message);
+		window.location.reload();
+	}
 });

@@ -64,6 +64,16 @@ async function upgradeMember(user, newRole) {
 	}
 }
 
+async function deleteMsg(id) {
+	if (!id)
+		return (null);
+	try {
+		await pool.query("DELETE FROM message WHERE id=$1;", [id]);
+	} catch (error) {
+		throw error;
+	}
+}
+
 module.exports = {
 	getUser,
 	getUserById,
@@ -71,4 +81,5 @@ module.exports = {
 	getAllMsgs,
 	insertMsg,
 	upgradeMember,
+	deleteMsg,
 };
