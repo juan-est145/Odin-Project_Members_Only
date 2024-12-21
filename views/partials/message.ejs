@@ -3,8 +3,10 @@
 		<div class="message">
 			<h1><%= element.title %></h1>
 			<p><%= element.text %></p>
-			<span><%= `${locals.currentUser.role === "user"? "Redacted" : element.date }` %></span>
-			<span> <%=  `${locals.currentUser.role === "user"? "Redacted" : element.username }` %></span>
+			<div>
+				<span> <%=  `User: ${locals.currentUser.role === "user"? "Redacted" : element.username }` %></span>
+				<span><%= `Date: ${locals.currentUser.role === "user"? "Redacted" : element.date }` %></span>
+			</div>
 		</div>
 	<% }); %>
 </main>
