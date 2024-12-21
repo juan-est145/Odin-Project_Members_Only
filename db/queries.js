@@ -54,10 +54,21 @@ async function insertMsg(title, text, date, users_id) {
 	}
 }
 
+async function upgradeMember(user, newRole) {
+	if (!user || !newRole)
+		return (null);
+	try {
+		await pool.query(`UPDATE users SET "role"=$2::role WHERE id=$1;`, [user.id, newRole]);
+	} catch (error) {
+		throw error;
+	}
+}
+
 module.exports = {
 	getUser,
 	getUserById,
 	signUser,
 	getAllMsgs,
 	insertMsg,
+	upgradeMember,
 };

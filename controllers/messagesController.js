@@ -1,4 +1,4 @@
-const { getAllMsgs, insertMsg } = require("../db/queries");
+const { getAllMsgs, insertMsg, upgradeMember } = require("../db/queries");
 const { body, validationResult } = require("express-validator");
 
 async function getDashBoard(req, res, next) {
@@ -12,6 +12,8 @@ async function getDashBoard(req, res, next) {
 }
 
 function getUpgradeForm(req, res) {
+	if (req.user.role === "admin")
+		return res.redirect("/messages");
 	return res.render("upgrade");
 }
 
@@ -39,10 +41,39 @@ const postMessage = [
 	},
 ];
 
+const postUpgradeForm = [
+	[
+		body("passcode").trim()
+			.isLength({min: 1, max: 255 })
+			.custom((value) => {
+				if (value === process.env.MEMBER_PASS || value === process.env.ADMIN_PASS)
+					return (true);
+				throw new Error("Incorrect passcode");
+			}),
+	],
+	async function postUpgradeForm(req, res, next) {
+		if (req.user.role === "admin") 
+			return res.redirect("/messages");
+		try {
+			const errors = validationResult(req);
+			if (!errors.isEmpty()) {
+				req.flash("valErrors", errors.array());
+				return res.redirect("/messages/upgrade");
+			}
+			let newRole = req.body.passcode === process.env.ADMIN_PASS ? "admin" : "member";
+			await upgradeMember(req.user, newRole);
+			return res.redirect("/messages");
+		} catch (error) {
+			console.error(error);
+			next(error);
+		}
+	}
+];
 
 
 module.exports = {
 	getDashBoard,
 	getUpgradeForm,
 	postMessage,
+	postUpgradeForm,
 }

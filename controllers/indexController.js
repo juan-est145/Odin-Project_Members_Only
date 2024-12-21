@@ -39,7 +39,7 @@ const postSignIn = [
 			.custom((value, { req }) => {
 				if (value !== req.body.password)
 					throw new Error("Passwords do not match");
-				return true;
+				return (true);
 			})
 	],
 	async function signIn(req, res) {
