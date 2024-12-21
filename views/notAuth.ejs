@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include("partials/headTag", {title: "Message club", style: "notAuth"}) %>
+<body>
+<%- include("partials/header") %>
+	<main>
+		<h1>Oops, you don't seem to be logged in, let's solve that</h1>
+		<a href="/log-in">
+			<button class="mainBtn">Log in</button>
+		</a>
+	</main>
+<%- include("partials/footer") %>
+</body>
+</html>
