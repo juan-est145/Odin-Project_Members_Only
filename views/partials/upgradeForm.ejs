@@ -1,0 +1,8 @@
+<main>
+	<form action="/messages/upgrade" method="POST">
+		<label for="passcode">Enter the secret passcode</label>
+		<input id="passcode" name="passcode" placeholder="Passcode" type="password" required/>
+		<button class="mainBtn">Submit</button>
+		<%- include("errors") %>
+	</form>
+</main>

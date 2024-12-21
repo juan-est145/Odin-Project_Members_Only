@@ -33,3 +33,7 @@ body {
 #postMessage>form>textarea {
 	min-height: 40ch;
 }
+
+.messageBoard {
+	display: block;
+}

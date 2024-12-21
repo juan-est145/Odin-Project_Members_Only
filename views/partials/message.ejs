@@ -1,8 +1,10 @@
-<div class="message">
+<main class="messageBoard">
 	<% messages.forEach(element => { %>
-		<h1><%= element.title %></h1>
-		<p><%= element.text %></p>
-		<span><%= element.date %></span>
-		<span> <%= element.username %></span>
+		<div class="message">
+			<h1><%= element.title %></h1>
+			<p><%= element.text %></p>
+			<span><%= `${locals.currentUser.role === "user"? "Redacted" : element.date }` %></span>
+			<span> <%=  `${locals.currentUser.role === "user"? "Redacted" : element.username }` %></span>
+		</div>
 	<% }); %>
-</div>
+</main>

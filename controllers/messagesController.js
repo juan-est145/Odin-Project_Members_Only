@@ -11,6 +11,10 @@ async function getDashBoard(req, res, next) {
 	}
 }
 
+function getUpgradeForm(req, res) {
+	return res.render("upgrade");
+}
+
 const postMessage = [
 	[
 		body("title").trim()
@@ -33,11 +37,12 @@ const postMessage = [
 			next(error);
 		}
 	},
-]
+];
 
 
 
 module.exports = {
 	getDashBoard,
+	getUpgradeForm,
 	postMessage,
 }

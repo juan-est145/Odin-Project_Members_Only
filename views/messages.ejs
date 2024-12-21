@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-	<%- include("partials/headTag", {title: "Message club", style: "messages"}) %>
+<%- include("partials/headTag", {title: "Message club", style: "messages"}) %>
 <body>
 	<%- include("partials/header") %>
 	<div class="newMessageHeader">
@@ -18,5 +18,6 @@
 	<%- include("partials/message", { messages: messages }) %>
 	<%- include("partials/newMessageForm") %>
 	<script src="messages.js" defer></script>
+	<%- include("./partials/footer") %>
 </body>
 </html>
