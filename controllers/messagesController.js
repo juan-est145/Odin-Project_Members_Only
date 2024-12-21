@@ -70,10 +70,21 @@ const postUpgradeForm = [
 	}
 ];
 
+async function deleteMsg(req, res, next) {
+	if (req.user.role !== "admin")
+		return res.status(401).redirect("/messages");
+	try {
+		
+	} catch (error) {
+		
+	}
+}
+
 
 module.exports = {
 	getDashBoard,
 	getUpgradeForm,
 	postMessage,
 	postUpgradeForm,
+	deleteMsg,
 }

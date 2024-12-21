@@ -13,5 +13,6 @@ msgRouter.get("/", msgController.getDashBoard);
 msgRouter.post("/new-message", msgController.postMessage);
 msgRouter.get("/upgrade", msgController.getUpgradeForm);
 msgRouter.post("/upgrade", msgController.postUpgradeForm);
+msgRouter.delete("/delete", msgController.deleteMsg);
 
 module.exports = msgRouter;
